@@ -1,0 +1,54 @@
+<!-- cart.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+</head>
+<body>
+
+<!-- Cart content will be displayed here -->
+<div id="cart-items">
+    <!-- Cart items will be dynamically added here using JavaScript -->
+</div>
+
+<script>
+    // Function to add item to cart
+    function addToCart(itemName, itemPrice) {
+        // Retrieve existing cart items from localStorage or initialize an empty array
+        let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Add new item to cart
+        cartItems.push({ name: itemName, price: itemPrice });
+
+        // Save updated cart to localStorage
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+
+        // Update cart display
+        displayCart();
+    }
+
+    // Function to display cart contents
+    function displayCart() {
+        let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+        let cartContainer = document.getElementById('cart-items');
+        cartContainer.innerHTML = ''; // Clear previous contents
+
+        // Display each item in the cart
+        cartItems.forEach(item => {
+            let itemElement = document.createElement('div');
+            itemElement.textContent = item.name + ' - $' + item.price;
+            cartContainer.appendChild(itemElement);
+        });
+    }
+
+    // Call displayCart when the page loads to show existing cart items
+    displayCart();
+</script>
+
+</body>
+</html>
